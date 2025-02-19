@@ -3,10 +3,12 @@ using TMPro;
 
 public class ScoreText : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] 
+    TextMeshProUGUI scoreText;
+
     private float elapsedTime;
     private int defaultScore = 0;
-    private bool isTimerRunning = false;
+    private bool isTimerRunning = true;
 
     // Update is called once per frame
     void Update()
