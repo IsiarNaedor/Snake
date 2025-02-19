@@ -1,38 +1,47 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
-public class Score : MonoBehaviour
+public class ScoreText : MonoBehaviour
 {
-    public Text scoreText;
+    [SerializeField] TextMeshProUGUI scoreText;
     private float elapsedTime;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private int defaultScore = 0;
+    private bool isTimerRunning = false;
 
     // Update is called once per frame
     void Update()
     {
-        elapsedTime += Time.deltaTime;
-        scoreText.text = Mathf.FloorToInt(elapsedTime).ToString();
+        CheckReset();
+        if (isTimerRunning)
+        {
+            elapsedTime += Time.deltaTime;
+            scoreText.text = Mathf.FloorToInt(elapsedTime).ToString();
+        }
+        //Debug.Log(elapsedTime);
+    }
+
+    private void CheckReset()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            if(isTimerRunning)
+            {
+                isTimerRunning = false;
+                Debug.Log("Timer is stopped");
+            }
+            else 
+            { 
+                isTimerRunning = true;
+                Debug.Log("Timer is running");
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            elapsedTime = 0; // Reset the timer value
+            scoreText.text = Mathf.FloorToInt(defaultScore).ToString(); // Update the UI
+            Debug.Log("Reset timer");
+        }
+
     }
 }
-//using UnityEngine;
-//using UnityEngine.UI;
-//using TMPro;
-
-//public class Score : MonoBehaviour
-//{
-//    public Text scoreText;
-//    private float elapsedTime;
-
-//    // Update is called once per frame
-//    void Update()
-//    {
-//        Debug.Log(elapsedTime);
-//        elapsedTime += Time.deltaTime;
-//        scoreText.text = string.Format("0", elapsedTime);
-//        scoreText.text += 1;
-//    }
-//}
