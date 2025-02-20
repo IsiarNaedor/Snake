@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         pauseMenu.SetActive(false);
+        isPause = false;
     }
 
     // Update is called once per frame
@@ -20,7 +22,7 @@ public class PauseMenu : MonoBehaviour
             {
                 ResumeGame();
             }
-            else
+            else if (GameOverMenu.isGameOver == false)
             {
                 PauseGame();
             }
@@ -31,7 +33,6 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
-
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPause = true;
@@ -45,10 +46,19 @@ public class PauseMenu : MonoBehaviour
 
     }
 
+    public void RestartGame()
+    {
+        // pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+        // isPause = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
 
+    }
     public void QuitGame()
     {
-
+        Debug.Log("Game Quit!");
+        Application.Quit(); 
     }
 
 }
